@@ -1,1 +1,6 @@
+User-agent: * # 针对所有爬虫
+Disallow: /admin/      # 禁止访问后台目录
+Disallow: /private/    # 禁止访问私有文件夹
+Allow: /public/        # 允许访问特定的子文件夹
 
+Sitemap: https://haiyunlyu.github.io/sitemap.xml  # 告诉爬虫你的站点地图在哪
