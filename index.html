@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="./favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
     <link rel="manifest" href="./favicon/site.webmanifest" />
-
+    
     <meta charset="utf-8">
     <style>
         :root {
@@ -177,6 +177,11 @@
             transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
             position: relative;
             overflow: hidden;
+
+            /* 字的位置 */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         
 
@@ -223,25 +228,28 @@
             50% { opacity: 0; }
         }
 
-        /* 论文查看提示的微弱呼吸感 */
+        /* 论文查看提示的呼吸感 */
+        /* 闪烁光标 */
+        .blink { animation: step-end-blink 1s infinite; }
+        @keyframes step-end-blink { from, to { opacity: 1; } 50% { opacity: 0; } }
+
+        /* 呼吸感提示标签 */
         .pub-hint {
-            font-weight: bold;
-            font-size: 0.65rem;
+            /* font-weight: bold; */
+            font-size: 0.6rem;
             letter-spacing: 1px;
             background: var(--oxford-blue);
             color: var(--pearl-white);
             padding: 2px 8px;
-            border-radius: 2px;
-            animation: pulse-hint 2s infinite ease-in-out;
-            pointer-events: none; /* 确保不影响卡片点击 */
+            border-radius: 1px;
+            animation: pulse-hint 2.5s infinite ease-in-out;
+            pointer-events: none;
         }
-
         @keyframes pulse-hint {
-            0% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); box-shadow: 0 0 10px rgba(98, 81, 221, 0.3); }
-            100% { opacity: 0.5; transform: scale(1); }
+            0% { opacity: 0.4; }
+            50% { opacity: 1; box-shadow: 0 0 10px rgba(98, 81, 221, 0.4); }
+            100% { opacity: 0.4; }
         }
-      
 
     </style>
 </head>
@@ -265,34 +273,35 @@
                 <span><strong>UNC Chapel Hill</strong> | B.S. Computer Science (Distinction), Neuroscience Minor</span>
             </div>
         </div>
+     
 
        <div style="margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px;">
-    <span class="label">[ Click to decrypt ]</span>
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
-        <div id="email-container">
-            <button class="cyber-btn email-highlight" onclick="decryptEmail(); event.stopPropagation();" id="decrypt-btn">
-                [Email]
-            </button>
+        <span class="label">[ Click to decrypt ]</span>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+            <div id="email-container">
+                <button class="cyber-btn email-highlight" onclick="decryptEmail(); event.stopPropagation();" id="decrypt-btn">
+                    [Email]
+                </button>
+            </div>
+            
+            <a href="https://scholar.google.com/citations?user=IE7NDaEAAAAJ&hl=en" target="_blank" class="cyber-btn gs-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
+                [Scholar]
+            </a>
+
+            <a href="你的CV文件链接.pdf" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
+                [CV]
+            </a>
+
+            <a href="https://www.linkedin.com/in/hazellyu/" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
+                [LinkedIn]
+            </a>
+
+            <a href="https://github.com/haiyunlyu" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
+                [Github]
+            </a>
         </div>
-
-        <a href="https://scholar.google.com/citations?user=IE7NDaEAAAAJ&hl=en" target="_blank" class="cyber-btn gs-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
-            [Scholar]
-        </a>
-
-        <a href="你的CV文件链接.pdf" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
-            [CV]
-        </a>
-
-        <a href="https://www.linkedin.com/in/hazellyu/" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
-            [LinkedIn]
-        </a>
-
-        <a href="https://github.com/haiyunlyu" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
-            [Github]
-        </a>
-    </div>
-</div>
-
+        </div>
+        
         <div style="margin-top: 20px;">
             <span class="label">[ DATA_STREAM: CURRENT_UPLINK ]</span>
             <div style="color: #222; font-size: 0.9rem; padding-left: 15px;">
@@ -306,17 +315,22 @@
                 PROSTHETICS | INDUSTRY 4.0 | ARCHITECTURE | SYSTEM
             </div>
         </div>
-
-
-        <div style="margin-top: 20px; font-size: 0.75rem; color: var(--ocean-blue); display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-family: monospace;"> 
+        
+        <div style="margin-top: 20px; font-size: 0.75rem; color: var(--ocean-blue); display: flex; flex-direction: column; gap: 3px;">
+            <div style="font-family: monospace; opacity: 0.8;"> 
                 >> Human-Robot Interaction initialized.
-                <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;Hint: Click card to view previous publications
-                <br>
-                >> STATUS: READY_FOR_RESEARCH<span class="blink">_</span>
             </div>
+        
+        <div style="padding-left: 15px; height: 30px; display: flex; align-items: center;">
+            <span class="pub-hint">
+                HINT: CLICK CARD TO VIEW RESEARCH_LOG
+            </span>
         </div>
+
+        <div style="font-family: monospace;">
+            >> STATUS: READY_FOR_RESEARCH <span class="blink">_</span>
+        </div>
+    </div>
 
         <div class="copyright">
             &#169 2026 HAIYUN LYU  吕海韵 // ALL RIGHTS RESERVED // CORE_UPDATED: 2026.01.24
