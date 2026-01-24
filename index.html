@@ -35,13 +35,23 @@
         /* 升级：流光溢彩的金属卡片 */
         .profile-card {
             position: relative;
-            width: 650px;
+            width: 600px;
+            aspect-ratio: 1 / 1; /* 强制宽高 1:1 正方形 */
             padding: 40px;
             background: linear-gradient(145deg, #8e8e8e, #757575);
             border: 1px solid rgba(255,255,255,0.3);
             clip-path: polygon(0% 20px, 20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%);
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+       
+        .inner-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 让内容均匀分布在正方形内 */
+            height: 100%;
         }
 
         /* 流光效果 */
@@ -125,6 +135,114 @@
             border-top: 1px solid rgba(0,0,0,0.1);
             padding-top: 10px;
         }
+
+        /* .cyber-btn {
+            background: transparent;
+            border: 1px solid var(--oxford-blue);
+            color: var(--oxford-blue);
+            padding: 8px 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cyber-btn:hover {
+            background: var(--oxford-blue);
+            color: var(--pearl-white);
+            box-shadow: 0 0 10px var(--electric-violet);
+        } */
+
+        
+
+        .cyber-btn {
+            background: white; 
+            border: 1px solid var(--oxford-blue);
+            color: black;
+            padding: 5px 5px;
+            font-family: 'ATC Mapel', monospace;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+            text-transform: uppercase;
+            /* letter-spacing: 1px; */
+
+            /* 外阴影：增加立体悬浮感 */
+            box-shadow: 2px 2px 0px var(--oxford-blue), 
+                        inset 1px 1px 1px rgba(255,255,255,0.4);
+                        
+            transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+
+        .cyber-btn:hover {
+            background: var(--oxford-blue);
+            color: var(--pearl-white);
+            /* 紫色发光，像机器启动时的状态灯 */
+            box-shadow: 0 0 15px rgba(98, 81, 221, 0.5); 
+            transform: translateY(-2px); /* 悬浮感 */
+            padding-left: 11px; /* 悬停时文字微右移，模拟点击预备 */
+        }
+
+        .cyber-btn:active {
+            transform: scale(0.95); /* 按压反馈 */
+            background: var(--electric-violet); /* 点击瞬间变成紫色，像高压电流通过 */
+            border-color: var(--electric-white);
+        }
+
+        /* CV 按钮的特殊高亮 */
+        .cv-highlight {
+            border-color: var(--slate-gray);
+            position: relative;
+        }
+
+        /* Scholar 按钮的特殊高亮 */
+        .gs-highlight {
+            border-color: var(--slate-gray);
+            position: relative;
+        }
+
+        /* Email 按钮的特殊高亮 */
+        .email-highlight {
+            border-color: var(--slate-gray);
+            position: relative;
+        }
+
+        /* 状态栏的光标闪烁 */
+        .blink {
+            animation: step-end-blink 1s infinite;
+        }
+
+        @keyframes step-end-blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* 论文查看提示的微弱呼吸感 */
+        .pub-hint {
+            font-weight: bold;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            background: var(--oxford-blue);
+            color: var(--pearl-white);
+            padding: 2px 8px;
+            border-radius: 2px;
+            animation: pulse-hint 2s infinite ease-in-out;
+            pointer-events: none; /* 确保不影响卡片点击 */
+        }
+
+        @keyframes pulse-hint {
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); box-shadow: 0 0 10px rgba(98, 81, 221, 0.3); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+      
+
     </style>
 </head>
 <body>
@@ -148,6 +266,33 @@
             </div>
         </div>
 
+       <div style="margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px;">
+    <span class="label">[ Click to decrypt ]</span>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+        <div id="email-container">
+            <button class="cyber-btn email-highlight" onclick="decryptEmail(); event.stopPropagation();" id="decrypt-btn">
+                [Email]
+            </button>
+        </div>
+
+        <a href="https://scholar.google.com/citations?user=IE7NDaEAAAAJ&hl=en" target="_blank" class="cyber-btn gs-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
+            [Scholar]
+        </a>
+
+        <a href="你的CV文件链接.pdf" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
+            [CV]
+        </a>
+
+        <a href="https://www.linkedin.com/in/hazellyu/" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
+            [LinkedIn]
+        </a>
+
+        <a href="https://github.com/haiyunlyu" target="_blank" class="cyber-btn cv-highlight" onclick="event.stopPropagation();" style="text-decoration: none;">
+            [Github]
+        </a>
+    </div>
+</div>
+
         <div style="margin-top: 20px;">
             <span class="label">[ DATA_STREAM: CURRENT_UPLINK ]</span>
             <div style="color: #222; font-size: 0.9rem; padding-left: 15px;">
@@ -162,8 +307,15 @@
             </div>
         </div>
 
-        <div style="margin-top: 20px; font-size: 0.8rem; color: var(--ocean-blue);">
-        >> Status: >> Human-Robot Interaction initialized. Ready for research. <span style="text-decoration: blink;">_</span>
+
+        <div style="margin-top: 20px; font-size: 0.75rem; color: var(--ocean-blue); display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-family: monospace;"> 
+                >> Human-Robot Interaction initialized.
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Hint: Click card to view previous publications
+                <br>
+                >> STATUS: READY_FOR_RESEARCH<span class="blink">_</span>
+            </div>
         </div>
 
         <div class="copyright">
@@ -215,7 +367,7 @@
     .drawer-content::-webkit-scrollbar { width: 4px; }
     .drawer-content::-webkit-scrollbar-thumb { background: var(--electric-violet); }
 
-    /* --- 新加入的论文条目样式 --- */
+    /* --- 论文条目样式 --- */
     .pub-list { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; }
     
     .pub-entry {
@@ -291,20 +443,6 @@
     </div>
 </div>
 
-<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
-    <div class="drawer" onclick="event.stopPropagation()">
-        <div class="close-tag" onclick="closeDrawer(null)">[ ESC_MODULE ]</div>
-        <span class="label" style="color: var(--oxford-blue);">[ RESEARCH_LOG: PUBLICATIONS ]</span>
-        
-        <div class="drawer-content">
-            <div class="paper-card" style="margin-top: 20px;">
-                <div class="paper-title">A Comprehensive Benchmark for VLM...</div>
-                <div class="paper-authors">...</div>
-            </div>
-            </div>
-    </div>
-</div>
-
 <script>
     const overlay = document.getElementById('drawerOverlay');
 
@@ -320,6 +458,38 @@
     document.querySelector('.profile-card').onclick = openDrawer;
 </script>
 
+<script>
+function decryptEmail() {
+    const btn = document.getElementById('decrypt-btn');
+    const container = document.getElementById('email-container');
+    
+    // 模拟解密动效
+    btn.innerText = "[ DECRYPTING... ]";
+    btn.style.borderColor = "var(--electric-violet)";
+    
+    setTimeout(() => {
+        // 拼接混淆的邮箱，静态扫描
+        const user = "haiyun";
+        const domain = "usc.edu";
+        const fullEmail = user + "@" + domain;
+        
+        // 渲染最终效果，带上mailto链接
+        container.innerHTML = `
+            <a href="mailto:${fullEmail}" 
+               style="color: var(--electric-violet); font-weight: bold; text-decoration: none; font-family: monospace; animation: fadeIn 0.5s;">
+               >> ${fullEmail}
+            </a>
+        `;
+    }, 100); // 100ms的延迟读条
+}
+</script>
+
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
 
 </body>
 </html>
