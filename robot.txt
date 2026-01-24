@@ -1,6 +1,5 @@
 User-agent: * # 针对所有爬虫
-Disallow: /admin/      # 禁止访问后台目录
-Disallow: /private/    # 禁止访问私有文件夹
+Disallow: /     
 # 禁止 OpenAI 的爬虫
 User-agent: GPTBot
 Disallow: /
