@@ -50,9 +50,10 @@
         /* 升级：流光溢彩的金属卡片 */
         .profile-card {
             position: relative;
-            width: 600px;
+            /* 在大屏是 600px，在小屏自动缩放，保持 95% 的屏幕宽度 */
+            width: clamp(320px, 95vw, 600px);
             aspect-ratio: 1 / 1; /* 强制宽高 1:1 正方形 */
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px); /* 边距随屏幕缩小 */
             background: linear-gradient(145deg, #8e8e8e, #757575);
             border: 1px solid rgba(255,255,255,0.3);
             clip-path: polygon(0% 20px, 20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%);
@@ -60,8 +61,12 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            
         }
+     
+        
        
+    
         .inner-content {
             display: flex;
             flex-direction: column;
@@ -169,27 +174,55 @@
             color: var(--pearl-white);
             box-shadow: 0 0 10px var(--electric-violet);
         } */
+         
 
+        /* Email 专用容器：固定高度和最小宽度，防止解密时撑开高度 */
+        #email-container {
+            min-width: 180px; /* 预留出邮箱的宽度 */
+            height: 32px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 强制按钮容器在极窄屏下也不换行 */
+        .social-grid {
+            display: flex;
+            flex-direction: row; /* 强制横向 */
+            flex-wrap: nowrap;   /* 绝对不换行 */
+            gap: 5px;
+            overflow-x: visible; /* 允许微量溢出或通过缩小按钮自适应 */
+        }
+            
         .social-icon-btn {
             text-decoration: none;
-            color: #444; /* 稍深的颜色模拟凹陷底部 */
-            font-size: 0.85rem;
+            color: #333; /* 模拟凹陷颜色 */
+            min-width: 0; /* 允许按钮在 flex 容器中缩小 */
+            font-size: clamp(0.55rem, 2vw, 0.75rem); /* 字体随屏幕变小 */
             font-family: 'ATC Mapel', monospace;
             font-weight: bold;
-            transition: all 0.3s;
-            padding: 6px 12px;
+            height: 32px; /* 统一高度 */
+            box-sizing: border-box;
+            padding: 0 clamp(4px, 1.5vw, 10px);
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.1); /* 极淡的底色 */
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(0, 0, 0, 0.1);
-            
             display: inline-flex;
             align-items: center;
-            gap: 8px; /* 图标与文字的间距 */
-
-            /* 核心：凹陷刻印效果 */
-            /* 上方深色阴影表示厚度 */
-            text-shadow: 
-                -1px -1px 1px rgba(0, 0, 0, 0.5), 
+            justify-content: center; /* 居中对齐图标和文字 */
+            gap: 6px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            
+            /* 增强刻印效果 */
+            text-shadow: -0.5px -0.5px 1px rgba(0,0,0,0.6);
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        /* 针对手机端的微调 */
+        @media screen and (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .edu-item { font-size: 0.7rem; }
+            .label { font-size: 0.65rem; }
+            .status-tag { padding: 2px 8px; font-size: 0.6rem; }
+            .copyright { font-size: 0.5rem; margin-top: 15px; }
         }
 
 
@@ -200,8 +233,6 @@
             box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1); /* 悬停时增加内阴影，更有按压感 */
         }
 
-       
- 
         
         /* 图标特殊处理：紫色微光 */
         .social-icon-btn i {
@@ -222,13 +253,13 @@
             animation: energy-flow 1.5s infinite ease-in-out;
         }
 
-        .social-icon-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--electric-violet);
-            transform: translateY(-2px);
-            /* 悬浮时整个按钮产生微弱的紫色投影 */
-            box-shadow: 0 4px 15px rgba(98, 81, 221, 0.2);
-        }
+    .social-icon-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: var(--electric-violet);
+        transform: translateY(-2px);
+        /* 悬浮时整个按钮产生微弱的紫色投影 */
+        box-shadow: 0 4px 15px rgba(98, 81, 221, 0.2);
+    }
 
         .cyber-btn {
             background: white; 
@@ -350,32 +381,32 @@
 
        <div style="margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px;">
         <span class="label">[ Click to decrypt ]</span>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px;">
             <div id="email-container">
                 <button class="cyber-btn email-highlight" onclick="decryptEmail(); event.stopPropagation();" id="decrypt-btn">
                     [Email]
-                </button>
+                </button>       
+                
             </div>
-            
+            <div class="social-grid">
             <a href="https://scholar.google.com/citations?user=IE7NDaEAAAAJ&hl=en" target="_blank" class="social-icon-btn" onclick="event.stopPropagation();" style="text-decoration: none;">
-                <i class="fa-brands fa-google"></i>[Scholar]
+                <i class="fa-solid fa-graduation-cap"></i>[GS]
             </a>
 
             <a href="你的CV文件链接.pdf" target="_blank" class="social-icon-btn" onclick="event.stopPropagation();" style="text-decoration: none;">
-                [CV]
+                <i class="fa-solid fa-file-invoice"></i>[CV]
             </a>
 
             <a href="https://www.linkedin.com/in/hazellyu/" target="_blank" class="social-icon-btn" onclick="event.stopPropagation();" style="text-decoration: none;">
-                <i class="fa-brands fa-linkedin"></i>[LinkedIn]
+                <i class="fa-brands fa-linkedin"></i>[Linked]
             </a>
 
             <a href="https://github.com/haiyunlyu" target="_blank" class="social-icon-btn" onclick="event.stopPropagation();" style="text-decoration: none;">
-                <i class="fa-brands fa-github"></i>[Github]
+                <i class="fa-brands fa-github"></i>[GitHub]
             </a>
+            </div>
         </div>
 
-        
-        </div>
         
         <div style="margin-top: 20px;">
             <span class="label">[ DATA_STREAM: CURRENT_UPLINK ]</span>
@@ -396,7 +427,7 @@
                 >> Human-Robot Interaction initialized.
             </div>
         
-        <div style="padding-left: 15px; height: 30px; display: flex; align-items: center;">
+        <div style="padding-left: 15px; height: 21px; display: flex; align-items: center;">
             <span class="pub-hint">
                 HINT: CLICK CARD TO VIEW RESEARCH_LOG
             </span>
@@ -407,11 +438,10 @@
         </div>
     </div>
 
-
         <div class="copyright">
             &#169 2026 HAIYUN LYU 吕海韵 // ALL RIGHTS RESERVED // CORE_UPDATED: 2026.01.24
             <br>
-            <span style="opacity: 0.6; font-size: 0.55rem;">
+            <span style="opacity: 0.5; font-size: 0.55rem;">
                 Background image credit: "<a href="https://www.flickr.com/photos/25970779@N07/13356178235" target="_blank" style="color: inherit;">Polaris</a>" by Skyriser / Lix (CC BY-NC 2.0)
             </span>
         </div>
