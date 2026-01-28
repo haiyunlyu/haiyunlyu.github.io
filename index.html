@@ -21,7 +21,7 @@
         }
 
         body {
-            background-color: var(--oxford-blue);
+            background-color: #00050a; /* 基础底色，防止图片加载慢时白屏 */
             color: var(--pearl-white);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -29,7 +29,18 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-image: radial-gradient(circle at 50% 50%, #001a42 0%, #00122e 100%);
+            overflow: hidden; /* 隐藏滚动条，保持全屏仪式感 */
+
+            /* --- 星空动图配置 --- */
+            /* stars.gif 和 index.html 放在同一个文件夹下 */
+            background-image: 
+                linear-gradient(rgba(0, 18, 46, 0.4), rgba(0, 18, 46, 0.4)), /* 叠加一层40%透明度的深蓝色滤镜 */
+                url('polaris.jpg'); 
+            
+            background-size: cover;        /* 强制覆盖全屏 */
+            background-position: center;   /* 居中显示 */
+            background-repeat: no-repeat;  /* 不重复 */
+            background-attachment: fixed;  /* 固定背景，不随内容滚动 */
         }
 
         /* 升级：流光溢彩的金属卡片 */
@@ -332,8 +343,13 @@
         </div>
     </div>
 
+
         <div class="copyright">
-            &#169 2026 HAIYUN LYU  吕海韵 // ALL RIGHTS RESERVED // CORE_UPDATED: 2026.01.24
+            &#169 2026 HAIYUN LYU 吕海韵 // ALL RIGHTS RESERVED // CORE_UPDATED: 2026.01.24
+            <br>
+            <span style="opacity: 0.6; font-size: 0.55rem;">
+                Background image credit: "<a href="https://www.flickr.com/photos/25970779@N07/13356178235" target="_blank" style="color: inherit;">Polaris</a>" by Skyriser / Lix (CC BY-NC 2.0)
+            </span>
         </div>
     </div>
 </div>
