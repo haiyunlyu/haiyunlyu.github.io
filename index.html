@@ -54,7 +54,7 @@
             position: relative;
             /* 在大屏是 600px，在小屏自动缩放，保持 95% 的屏幕宽度 */
             width: clamp(320px, 95vw, 600px);
-            aspect-ratio: 1 / 1; /* 强制宽高 1:1 正方形 */
+            min-height: 800px; /*长方形高度*/
             padding: clamp(20px, 5vw, 40px); /* 边距随屏幕缩小 */
             background: linear-gradient(145deg, #8e8e8e, #757575);
             border: 1px solid rgba(255,255,255,0.3);
