@@ -53,9 +53,11 @@
         .profile-card {
             position: relative;
             /* 在大屏是 600px，在小屏自动缩放，保持 95% 的屏幕宽度 */
+            height: auto;           /* 让高度随内容伸缩 */
+            min-height: 550px;      /* 设置一个合理的最小保底高度 */
             width: clamp(320px, 95vw, 600px);
-            min-height: 800px; /*长方形高度*/
             padding: clamp(20px, 5vw, 40px); /* 边距随屏幕缩小 */
+            padding-bottom: 40px;   /* 给底部的版权信息留出一点呼吸空间 */
             background: linear-gradient(145deg, #8e8e8e, #757575);
             border: 1px solid rgba(255,255,255,0.3);
             clip-path: polygon(0% 20px, 20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%);
@@ -63,7 +65,6 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-        
         }
      
     
